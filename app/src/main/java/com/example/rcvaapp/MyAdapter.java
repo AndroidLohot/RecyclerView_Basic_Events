@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
-    private UserInfo userInfo;
     private ArrayList<UserInfo> arrayList;
+    private userInfoEvents userInfoEvents;
 
-    public MyAdapter(UserInfo userInfo, ArrayList<UserInfo> arrayList) {
-        this.userInfo = userInfo;
+    public MyAdapter(ArrayList<UserInfo> arrayList, MyAdapter.userInfoEvents userInfoEvents) {
         this.arrayList = arrayList;
+        this.userInfoEvents = userInfoEvents;
     }
 
     @NonNull
@@ -60,11 +60,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
         @Override
         public void onClick(View v) {
+
             int position=getAdapterPosition();
 
-            UserInfo uInfo=arrayList.get(position);
-
-            Toast.makeText(v.getContext(),uInfo.getfName(),Toast.LENGTH_LONG).show();
+            userInfoEvents.eventsClick(arrayList.get(position));
         }
+    }
+
+    public interface userInfoEvents
+    {
+        void eventsClick(UserInfo userInfo);
     }
 }
